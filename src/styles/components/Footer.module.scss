@@ -1,0 +1,45 @@
+@import "../common/colours.scss";
+@import "../common/fonts.scss";
+.root {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: $navbarBackgroundColour;
+  position: absolute;
+  align-items: center;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  text-align: left;
+}
+.header {
+  font-size: large;
+  font-weight: bold;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  > div > p {
+    margin: 0;
+  }
+  > div {
+    margin-bottom: 0.5rem;
+  }
+  .address {
+  }
+  .cvr,
+  .email,
+  .phone {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.nav {
+}
+
+.social {
+}

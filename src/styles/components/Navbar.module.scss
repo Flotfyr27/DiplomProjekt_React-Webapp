@@ -1,0 +1,48 @@
+@import "../common/colours.scss";
+@import "../common/fonts.scss";
+@import "../common/breakpoints.scss";
+.root {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: $navbarBackgroundColour;
+  position: sticky;
+  align-items: center;
+  height: 3rem;
+}
+
+.logo {
+  height: 3rem;
+  padding: 0;
+  img {
+    max-height: 100%;
+  }
+}
+
+.links {
+  a {
+    font-size: calc($navbarFontSize/1.5);
+    @include sm {
+      font-size: $navbarFontSize;
+    }
+    padding: 1rem 1rem; //Padding left/right
+    text-decoration: none;
+    box-shadow: 1rem;
+    border-radius: 10px;
+    &:hover {
+      background-color: aqua;
+    }
+    &:active {
+      color: $navbarLinkActiveColour;
+    }
+    // Non active link specific styling
+    &.link {
+    }
+
+    // Active link specific styling
+    &.linkActive {
+      text-decoration: underline;
+    }
+  }
+}
