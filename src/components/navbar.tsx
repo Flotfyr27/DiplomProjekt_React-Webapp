@@ -8,9 +8,9 @@ interface Link {
 }
 
 const links: Link[] = [
-  { title: "Hjem", url: "/" },
+  // { title: "Hjem", url: "/" },
+  { title: "Projekter", url: "projekter" },
   { title: "Om os", url: "om-os" },
-    { title: "Projekter", url: "projekter" },
 ];
 
 const Navbar: FC = () => {
@@ -22,13 +22,13 @@ function hamburgerClick() {
   return (
     <header className={style.root}>
       <div className={style.logo}>
-        <img src="/logo.png" onClick={() => navigate("/")} />
+        <img src="/logo.png" onClick={() => {navigate("/"); setMenuActive(false)}} />
       </div>
       <nav className={`${style.links} ${menuActive ? style.active : ""}`}>
         {links.map((link, idx) => {
           return (
             <NavLink
-              key={idx}
+            key={idx}
               to={link.url}
               onClick={() =>setMenuActive(false)}
               className={({ isActive }) =>

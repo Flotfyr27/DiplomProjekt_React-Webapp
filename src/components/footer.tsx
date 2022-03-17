@@ -11,7 +11,7 @@ interface BusinessInfo {
 const businessInfo: BusinessInfo = {
   address: "Bjerreager 82, 7120 Vejle Øst",
   cvr: 42531901,
-  phone: "12345678",
+  phone: "50467162",
   email: "kontakt@nj.dk",
 };
 

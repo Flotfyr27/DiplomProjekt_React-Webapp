@@ -1,6 +1,9 @@
 @import "../common/colours.scss";
 @import "../common/fonts.scss";
 @import "../common/breakpoints.scss";
+@import "../common/transformations.scss";
+
+$navbarHeight: 4rem;
 .root {
   display: flex;
   flex-direction: row;
@@ -9,24 +12,23 @@
   background-color: $navbarBackgroundColour;
   position: sticky;
   align-items: center;
-  height: 3rem;
+  height: $navbarHeight;
 }
 
 .logo {
-  height: 3rem;
+  height: $navbarHeight;
   padding: 0;
+  background-color: #fff;
+  border-radius: 10px;
   img {
-    max-height: 100%;
+     height: inherit;  
   }
 }
-a{
-  text-decoration: none;
-}
-
+// Links on larger displays
 .links {
   position: fixed;
   left: -100%;
-  top: 5rem;
+  top: 6rem;
   display: flex;
   flex-direction: column;
   background-color: #fff;
@@ -37,42 +39,70 @@ a{
   &.active{
     left: 0;
   }
-
-  a{
-    text-transform: uppercase;
-  }
-}
-
-.links {
   @include sm {
+    // Remove items not needed when on large viewport
     position: unset;
     left: unset;
     flex-direction: unset;
     top: unset;
     background-color: unset;
     width: unset;
-    a {
-    font-size: calc($navbarFontSize/1.5);
-    @include sm {
-      font-size: $navbarFontSize;
-    }
-    padding: 1rem 1rem; //Padding left/right
-    // box-shadow: 1rem;
-    &:hover {
-      background-color: aqua;
-    }
-    &:active {
-      color: $navbarLinkActiveColour;
-    }
+  }
 
-    // Active link specific styling
-    &.linkActive {
+  > a{
+    font-size: calc($navbarFontSize/1.5);
+    background-color: $colour3;
+    color: #fff;
+    //Give every odd element a bottom border
+    &:nth-child(odd){
+      border-bottom: 1px solid black;
+    }
+    padding: 1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    &.linkActive{
       text-decoration: underline;
     }
-  }}
+
+    @include sm {
+     background-color: unset;
+      &:nth-child(odd){
+        border-bottom: unset;
+      }
+      &:hover{
+        transform: scale($HoverScaleAmount);
+      }
+    }
+  }
+
+  
 }
+//-------------
+// a {
+//   font-size: calc($navbarFontSize/1.5);
+//   @include sm {
+//     font-size: $navbarFontSize;
+//     border: unset;
+//     color: #fff;
+//   }
+//   // padding: 1rem 1rem; //Padding left/right
+//   // box-shadow: 1rem;
+//   &:hover {
+//     // background-color: aqua;
+//     transform: scale(1.1);
+//   }
+//   &:active {
+//     color: $navbarLinkActiveColour;
+//   }
 
+//   // Active link specific styling
+//   &.linkActive {
+//     text-decoration: underline;
+//   }
+// }
+//-------------------
 
+// Hamburger bit has been inspired by https://dev.to/devggaurav/let-s-build-a-responsive-navbar-and-hamburger-menu-using-html-css-and-javascript-4gci
 .hamburger {
   display: block;
   cursor: pointer;
@@ -100,5 +130,5 @@ a{
   height: 3px;
   margin: 5px auto;
   transition: all 0.3s ease-in-out;
-  background-color: #101010;
+  background-color: #fff;
 }
