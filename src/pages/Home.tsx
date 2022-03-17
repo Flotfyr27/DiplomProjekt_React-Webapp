@@ -5,7 +5,7 @@ const Home: FC = () => {
   return (
     <div>
       <h1>This is home page</h1>
-      <Link to="about">Click to view our about page</Link>
+      <Link to="om-os">Click to view our about page</Link>
     </div>
   );
 };

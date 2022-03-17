@@ -1,31 +1,36 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import style from "../styles/components/Navbar.module.scss";
 
-interface link {
+interface Link {
   title: string;
   url: string;
 }
 
-const links: link[] = [
+const links: Link[] = [
   { title: "Hjem", url: "/" },
   { title: "Om os", url: "om-os" },
-  //   { title: "Projekter", url: "projekter" },
+    { title: "Projekter", url: "projekter" },
 ];
 
 const Navbar: FC = () => {
-  const navigate = useNavigate();
+const navigate = useNavigate();
+const [menuActive, setMenuActive] = useState(false);
+function hamburgerClick() {
+  setMenuActive(!menuActive);
+}
   return (
-    <div className={style.root}>
+    <header className={style.root}>
       <div className={style.logo}>
         <img src="/logo.png" onClick={() => navigate("/")} />
       </div>
-      <div className={style.links}>
+      <nav className={`${style.links} ${menuActive ? style.active : ""}`}>
         {links.map((link, idx) => {
           return (
             <NavLink
               key={idx}
               to={link.url}
+              onClick={() =>setMenuActive(false)}
               className={({ isActive }) =>
                 isActive ? style.linkActive : style.link
               }
@@ -34,8 +39,13 @@ const Navbar: FC = () => {
             </NavLink>
           );
         })}
-      </div>
-    </div>
+      </nav>
+      <div className={`${style.hamburger} ${menuActive ? style.active : ""}`} onClick={hamburgerClick}>
+                <span className={style.bar}></span>
+                <span className={style.bar}></span>
+                <span className={style.bar}></span>
+            </div>
+    </header>
   );
 };
 
