@@ -2,48 +2,60 @@ import { FC } from "react";
 import style from "../styles/components/Footer.module.scss";
 
 interface BusinessInfo {
-  address: string;
+  location: string;
+  city: string;
   cvr: number;
   email?: string;
   phone?: string;
 }
 
 const businessInfo: BusinessInfo = {
-  address: "Bjerreager 82, 7120 Vejle Øst",
+  location: "Bjerreager 82",
+  city: "7120 Vejle Øst",
   cvr: 42531901,
-  phone: "50467162",
+  phone: "+4550467162",
   email: "kontakt@nj.dk",
 };
 
 const addressIntroduction = "Du kan finde os her";
 
 const Footer: FC = () => {
-  const displayPhone = businessInfo.phone?.replace(/([d]{2})/g, ""); // Phone number displays incorrectly
-  console.log(displayPhone);
+  // Use regex to add a space after 2 digits in phone number for prettier display
+  const displayPhone = businessInfo.phone
+    ?.toString()
+    .replace(/\B(?=(\d{2})+(?!\d))/g, " ");
   return (
     <div className={style.root}>
       <div className={style.info}>
-        <div className={style.address}>
-          <div className={style.header}>
-            <span>{addressIntroduction}</span>
-          </div>
-          <p>{businessInfo.address}</p>
-        </div>
-        <div className={style.cvr}>
-          <p>CVR:</p>
-          <p>{businessInfo.cvr}</p>
-        </div>
-        <div className={style.email}>
-          <p>Email:</p>
-          <p>{businessInfo.email}</p>
-        </div>
-        <div className={style.phone}>
-          <p>Tlf:</p>
-          <p>{displayPhone}</p>
-        </div>
+        <span className={style.header}>{addressIntroduction}</span>
+        <ul>
+          <li className={style.address}>
+            <i className="material-icons">place</i>
+            <div className={style.city}>
+              <span>{businessInfo.location}</span>
+              <span>{businessInfo.city}</span>
+            </div>
+          </li>
+          <li className={style.cvr}>
+            <span>CVR:</span>
+            <span>{businessInfo.cvr}</span>
+          </li>
+          <li className={style.email}>
+            <span>
+              <i className="material-icons">email</i>
+            </span>
+            <a href={`mailto:${businessInfo.email}`}>{businessInfo.email}</a>
+          </li>
+          <li className={style.phone}>
+            <span>
+              <i className="material-icons">call</i>
+            </span>
+            <a href={`callto:${businessInfo.phone}`}>{displayPhone}</a>
+          </li>
+        </ul>
       </div>
       <div className={style.social}>
-        <div className={style.header}></div>
+        <span className={style.header}>Følg os på de sociale medier</span>
       </div>
     </div>
   );

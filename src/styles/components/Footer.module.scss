@@ -1,45 +1,75 @@
 @import "../common/colours.scss";
 @import "../common/fonts.scss";
+@import "../common/breakpoints.scss";
 .root {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   padding: 1rem;
   background-color: $navbarBackgroundColour;
+  color: #fff;
   position: absolute;
-  align-items: center;
   bottom: 0;
   right: 0;
   left: 0;
   text-align: left;
+  @include md {
+    flex-direction: row;
+    justify-content: space-evenly;
+    // Add some spacing between sections
+    div:nth-child(odd) {
+      margin-bottom: 1rem;
+    }
+  }
 }
 .header {
   font-size: large;
   font-weight: bold;
+  text-align: center;
 }
 
 .info {
   display: flex;
   flex-direction: column;
-  > div > p {
-    margin: 0;
+
+  ul {
+    padding: 0rem 3rem;
+    @include md {
+      padding: 0rem 0rem;
+      margin: 0;
+    }
   }
-  > div {
-    margin-bottom: 0.5rem;
+  li {
+    list-style-type: none;
+    margin-bottom: 5px;
   }
-  .address {
-  }
+  .address,
   .cvr,
   .email,
   .phone {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+    > a {
+      text-decoration: none;
+      color: #fff;
+      &:hover {
+        color: $colour1;
+      }
+    }
+  }
+  .address {
+    .city {
+      display: flex;
+      flex-direction: column;
+      @include md {
+        margin-left: 3rem;
+      }
+    }
   }
 }
 
-.nav {
-}
-
 .social {
+  display: flex;
+  flex-direction: column;
 }
