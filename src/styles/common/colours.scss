@@ -1,11 +1,12 @@
 // Colours
 
-
-
-$colour1: #ab540f;//cmyk(8%, 55%, 92%, 27%);
-$colour2: #652e00;//cmyk(12%, 60%, 100%, 55%);
-$colour3: #4c9100;//cmyk(52%, 8%, 100%, 38%); //Green ish
+$colour1: #ab540f; //cmyk(8%, 55%, 92%, 27%);
+$colour2: #652e00; //cmyk(12%, 60%, 100%, 55%);
+$colour3: #4c9100; //cmyk(52%, 8%, 100%, 38%); //Green ish
 
 // Navbar
-$navbarBackgroundColour: $colour1;//#ededed;
+$navbarBackgroundColour: $colour3; //#ededed;
 $navbarLinkActiveColour: $colour2;
+
+// Hamburger
+$hamburgerMenuFillColour: $colour1;

@@ -21,7 +21,7 @@ $navbarHeight: 4rem;
   background-color: #fff;
   border-radius: 10px;
   img {
-     height: inherit;  
+    height: inherit;
   }
 }
 // Links on larger displays
@@ -36,7 +36,7 @@ $navbarHeight: 4rem;
   border-radius: 10px;
   transition: 0.3s;
   box-shadow: 1rem;
-  &.active{
+  &.active {
     left: 0;
   }
   @include sm {
@@ -49,33 +49,31 @@ $navbarHeight: 4rem;
     width: unset;
   }
 
-  > a{
+  > a {
     font-size: calc($navbarFontSize/1.5);
-    background-color: $colour3;
+    background-color: $hamburgerMenuFillColour;
     color: #fff;
     //Give every odd element a bottom border
-    &:nth-child(odd){
+    &:nth-child(odd) {
       border-bottom: 1px solid black;
     }
     padding: 1rem;
     text-decoration: none;
     text-transform: uppercase;
-    &.linkActive{
+    &.linkActive {
       text-decoration: underline;
     }
 
     @include sm {
-     background-color: unset;
-      &:nth-child(odd){
+      background-color: unset;
+      &:nth-child(odd) {
         border-bottom: unset;
       }
-      &:hover{
+      &:hover {
         transform: scale($HoverScaleAmount);
       }
     }
   }
-
-  
 }
 //-------------
 // a {
@@ -108,14 +106,14 @@ $navbarHeight: 4rem;
   cursor: pointer;
 
   // Open and close animation
-  &.active{
-    .bar:nth-child(1){
+  &.active {
+    .bar:nth-child(1) {
       transform: translateY(8px) rotate(45deg);
     }
-    .bar:nth-child(2){
+    .bar:nth-child(2) {
       opacity: 0;
     }
-    .bar:nth-child(3){
+    .bar:nth-child(3) {
       transform: translateY(-8px) rotate(-45deg);
     }
   }
@@ -124,7 +122,7 @@ $navbarHeight: 4rem;
     display: none;
   }
 }
-.bar{
+.bar {
   display: block;
   width: 25px;
   height: 3px;
