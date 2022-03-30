@@ -50,7 +50,7 @@ const Footer: FC = () => {
             <span>
               <i className="material-icons">call</i>
             </span>
-            <a href={`callto:${businessInfo.phone}`}>{displayPhone}</a>
+            <a href={`tel:${businessInfo.phone}`}>{displayPhone}</a>
           </li>
         </ul>
       </div>

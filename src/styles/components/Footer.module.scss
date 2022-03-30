@@ -22,9 +22,12 @@
   }
 }
 .header {
-  font-size: large;
   font-weight: bold;
   text-align: center;
+  text-transform: uppercase;
+  @include md {
+    font-size: large;
+  }
 }
 
 .info {

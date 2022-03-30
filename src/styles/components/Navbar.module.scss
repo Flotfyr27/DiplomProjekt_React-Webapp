@@ -61,6 +61,8 @@ $navbarHeight: 4rem;
     padding: 1rem;
     text-decoration: none;
     text-transform: uppercase;
+    font-size: large;
+    font-weight: bold;
     &.linkActive {
       text-decoration: underline;
     }
