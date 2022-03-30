@@ -75,4 +75,18 @@
 .social {
   display: flex;
   flex-direction: column;
+
+  .mediaIcons {
+    display: flex;
+    flex-direction: row;
+    background-color: #fff;
+    border-radius: 10px;
+    // width: min-content;
+    justify-content: space-around;
+    padding: 2.5px;
+    margin: 0rem 1rem;
+    .facebook {
+      color: #4267b2;
+    }
+  }
 }

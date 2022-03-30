@@ -1,5 +1,7 @@
 import { FC } from "react";
 import style from "../styles/components/Footer.module.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 
 interface BusinessInfo {
   location: string;
@@ -15,6 +17,14 @@ const businessInfo: BusinessInfo = {
   cvr: 42531901,
   phone: "+4550467162",
   email: "kontakt@nj.dk",
+};
+
+interface SocialInfo {
+  facebook?: string;
+}
+
+const socialInfo: SocialInfo = {
+  facebook: "https://www.facebook.com",
 };
 
 const addressIntroduction = "Du kan finde os her";
@@ -56,6 +66,15 @@ const Footer: FC = () => {
       </div>
       <div className={style.social}>
         <span className={style.header}>Følg os på de sociale medier</span>
+        <div className={style.mediaIcons}>
+          <a href={socialInfo.facebook}>
+            <FontAwesomeIcon
+              icon={faFacebook}
+              className={style.facebook}
+              size="3x"
+            />
+          </a>
+        </div>
       </div>
     </div>
   );
