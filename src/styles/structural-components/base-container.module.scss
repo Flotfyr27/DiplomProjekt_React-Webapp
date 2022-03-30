@@ -1,0 +1,17 @@
+@import "../common/breakpoints.scss";
+@import "../common/colours.scss";
+.baseContainer {
+  justify-content: center;
+  width: 100%;
+  margin: 0;
+}
+.containerPadding {
+  padding: 1rem 10%;
+  @include sm {
+    padding: 2rem 25%;
+  }
+}
+
+.background {
+  background-color: rgba(218, 218, 218, 0.967);
+}
