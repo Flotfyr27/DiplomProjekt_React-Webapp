@@ -2,6 +2,7 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
+import Project from "./pages/Project";
 import Helmet from "react-helmet";
 import Navbar from "./components/navbar";
 import Footer from "./components/footer";
@@ -14,6 +15,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="projekter" element={<Project />} />
         <Route path="om-os" element={<About />} />
       </Routes>
       <Footer />
