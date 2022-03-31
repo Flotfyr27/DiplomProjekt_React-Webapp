@@ -1,0 +1,97 @@
+.carouselContainer {
+  width: 100%;
+  justify-content: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  // Slides
+  .slideHidden {
+    display: none;
+  }
+
+  .image {
+    border-radius: 10px;
+  }
+  .slide {
+    position: relative;
+    width: 100%;
+  }
+  // Slider chevrons
+  .prev,
+  .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: 0.6s ease;
+    border-radius: 10px;
+    user-select: none;
+    background-color: rgba(0, 0, 0, 0.3);
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+      color: #fff;
+    }
+  }
+  .next {
+    right: 0;
+  }
+
+  // End dots
+  .dot {
+    cursor: pointer;
+    background-color: #000;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+  }
+  .active,
+  .dot:hover {
+    background-color: blue; //#717171;
+  }
+
+  .endDots {
+    text-align: center;
+    padding-bottom: 1rem;
+  }
+
+  // Animations
+
+  // ----- Slide in
+  .slideLeft,
+  .slideRight {
+    --startPos: 3rem;
+    animation-name: slidingAnim, fadeIn;
+    animation-duration: 1s, 1.2s;
+    animation-delay: 0s, 0s;
+    animation-timing-function: ease-in-out, ease-in-out;
+  }
+
+  .slideRight {
+    --startPos: -3rem;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0.1;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slidingAnim {
+    from {
+      transform: translateX(var(--startPos));
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+}

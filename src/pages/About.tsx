@@ -1,5 +1,6 @@
 import { FC } from "react";
 import Helmet from "react-helmet";
+import BaseContainer from "../structural-components/base-container";
 
 const About: FC = () => {
   return (
@@ -7,7 +8,9 @@ const About: FC = () => {
       <Helmet>
         <title>About us</title>
       </Helmet>
-      <h1>This is about page</h1>
+      <BaseContainer>
+        <h1>Om os</h1>
+      </BaseContainer>
     </div>
   );
 };
