@@ -7,10 +7,6 @@
   padding: 1rem;
   background-color: $navbarBackgroundColour;
   color: #fff;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  left: 0;
   text-align: left;
   @include md {
     flex-direction: row;

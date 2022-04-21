@@ -33,17 +33,19 @@ const Carousel: FC<CarouselProps> = ({ slides }) => {
         {slides.map((s, idx) => {
           dots.push(
             <span
+              key={idx}
               className={`${style.dot} ${
                 showSlide === idx ? style.active : ""
               }`}
               onClick={() => setShowSlide(idx)}
             ></span>
           );
+          console.log(dots);
           return (
             <div
-              className={`${showSlide === idx ? "" : style.slideHidden} ${
-                slideLeft ? style.slideLeft : style.slideRight
-              } ${style.slide}`}
+              className={` ${slideLeft ? style.slideLeft : style.slideRight} ${
+                style.slide
+              } ${showSlide === idx ? "" : style.slideHidden}`}
               key={idx}
             >
               <img src={s.image} className={style.image} alt="" />
@@ -57,8 +59,8 @@ const Carousel: FC<CarouselProps> = ({ slides }) => {
         <a className={style.next} onClick={() => changeSlide(1)}>
           &#10095;
         </a>
+        <div className={style.endDots}>{dots}</div>
       </div>
-      <div className={style.endDots}>{dots}</div>
     </>
   );
 };
