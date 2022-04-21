@@ -43,9 +43,9 @@ const Carousel: FC<CarouselProps> = ({ slides }) => {
           console.log(dots);
           return (
             <div
-              className={` ${slideLeft ? style.slideLeft : style.slideRight} ${
-                style.slide
-              } ${showSlide === idx ? "" : style.slideHidden}`}
+              className={`${
+                showSlide === idx ? style.activeSlide : style.slideHidden
+              }`}
               key={idx}
             >
               <img src={s.image} className={style.image} alt="" />
@@ -59,8 +59,8 @@ const Carousel: FC<CarouselProps> = ({ slides }) => {
         <a className={style.next} onClick={() => changeSlide(1)}>
           &#10095;
         </a>
-        <div className={style.endDots}>{dots}</div>
       </div>
+      <div className={style.endDots}>{dots}</div>
     </>
   );
 };
