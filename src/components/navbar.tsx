@@ -14,23 +14,29 @@ const links: Link[] = [
 ];
 
 const Navbar: FC = () => {
-const navigate = useNavigate();
-const [menuActive, setMenuActive] = useState(false);
-function hamburgerClick() {
-  setMenuActive(!menuActive);
-}
+  const navigate = useNavigate();
+  const [menuActive, setMenuActive] = useState(false);
+  function hamburgerClick() {
+    setMenuActive(!menuActive);
+  }
   return (
     <header className={style.root}>
       <div className={style.logo}>
-        <img src="/logo.png" onClick={() => {navigate("/"); setMenuActive(false)}} />
+        <img
+          src="/nj_favicon.svg"
+          onClick={() => {
+            navigate("/");
+            setMenuActive(false);
+          }}
+        />
       </div>
       <nav className={`${style.links} ${menuActive ? style.active : ""}`}>
         {links.map((link, idx) => {
           return (
             <NavLink
-            key={idx}
+              key={idx}
               to={link.url}
-              onClick={() =>setMenuActive(false)}
+              onClick={() => setMenuActive(false)}
               className={({ isActive }) =>
                 isActive ? style.linkActive : style.link
               }
@@ -40,11 +46,14 @@ function hamburgerClick() {
           );
         })}
       </nav>
-      <div className={`${style.hamburger} ${menuActive ? style.active : ""}`} onClick={hamburgerClick}>
-                <span className={style.bar}></span>
-                <span className={style.bar}></span>
-                <span className={style.bar}></span>
-            </div>
+      <div
+        className={`${style.hamburger} ${menuActive ? style.active : ""}`}
+        onClick={hamburgerClick}
+      >
+        <span className={style.bar}></span>
+        <span className={style.bar}></span>
+        <span className={style.bar}></span>
+      </div>
     </header>
   );
 };
