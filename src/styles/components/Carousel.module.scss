@@ -1,19 +1,23 @@
 @import "../common/colours.scss";
 .carouselContainer {
-  max-height: 500px;
+  height: 500px;
   width: 100%;
   justify-content: center;
   position: relative;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 
   // Slides
+.slide {
+  max-height: 500px;
+  position: absolute;
+  width: 100%;
+  height: auto;
+}
+
   .slideHidden {
     display: none;
-  }
-  .activeSlide {
-    max-height: 500px;
-    // transform: translateX(0);
   }
 
   .image {
@@ -59,47 +63,35 @@
 
   
 
-  // Animations
+  // // Animations
 
-  .slideLeft{
-    transform: translateX(105%);
-  }
-  .slideRight{
-    transform: translateX(-105%);
-  }
-
-
-  // ----- Slide in
-  // .slideLeft,
-  // .slideRight {
-  //   --startPos: 3rem;
-  //   animation-name: slidingAnim, fadeIn;
-  //   animation-duration: 1s, 1.2s;
-  //   animation-delay: 0s, 0s;
-  //   animation-timing-function: ease-in-out, ease-in-out;
+  // .slideLeft{
+  //   transform: translateX(105%);
+  // }
+  // .slideRight{
+  //   transform: translateX(-105%);
   // }
 
-  // .slideRight {
-  //   --startPos: -3rem;
-  // }
+.slideIn {
+  animation: slide-in 0.5s forwards ease;
+}
+.slideOut {
+  animation: slide-out 0.5s forwards ease;
+}
 
-  // @keyframes fadeIn {
-  //   from {
-  //     opacity: 0.1;
-  //   }
-  //   to {
-  //     opacity: 1;
-  //   }
-  // }
 
-  @keyframes slidingAnim {
-    from {
-      transform: translateX(var(--startPos));
-    }
-    to {
-      transform: translateX(0);
-    }
+@keyframes slide-in {
+  0%{
+    transform: translateX(-105%)
   }
+  100% { transform: translateX(0%)}
+}
+
+@keyframes slide-out {
+  0%{ transform: translateX(0%)}
+  100% { transform: translate(-105%)}
+  
+}
 }
 // End dots
 .dot {

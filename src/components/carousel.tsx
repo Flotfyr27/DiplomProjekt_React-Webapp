@@ -8,7 +8,6 @@ export interface CarouselProps {
 
 const Carousel: FC<CarouselProps> = ({ slides }) => {
   const [showSlide, setShowSlide] = useState(0);
-  const [slideLeft, setSlideLeft] = useState(true);
 
   function changeSlide(n: number) {
     // Upper limit
@@ -18,11 +17,6 @@ const Carousel: FC<CarouselProps> = ({ slides }) => {
       setShowSlide(slides.length - 1);
     } else {
       setShowSlide(showSlide + n);
-    }
-    if (n > 0) {
-      setSlideLeft(true);
-    } else {
-      setSlideLeft(false);
     }
   }
   let dots: any = [];
@@ -43,8 +37,8 @@ const Carousel: FC<CarouselProps> = ({ slides }) => {
           console.log(dots);
           return (
             <div
-              className={`${
-                showSlide === idx ? style.activeSlide : style.slideHidden
+              className={`${style.slide} ${
+                showSlide === idx ? style.slideIn : style.slideOut
               }`}
               key={idx}
             >
