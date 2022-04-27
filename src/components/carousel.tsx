@@ -34,7 +34,6 @@ const Carousel: FC<CarouselProps> = ({ slides }) => {
               onClick={() => setShowSlide(idx)}
             ></span>
           );
-          console.log(dots);
           return (
             <div
               className={`${style.slide} ${

@@ -5,9 +5,9 @@ import BaseContainer from "../structural-components/base-container";
 
 const carouselProps: CarouselProps = {
   slides: [
-    { image: "/kitchen.jpg", caption: "Hello there!" },
-    { image: "/nj_favicon.svg", caption: "Ahh..." },
-    { image: "/placeholder-house.png", caption: "General Kenobi!" },
+    { image: "/kitchen.jpg", caption: "At klare et køkken er intet problem." },
+    { image: "/nj_favicon.svg", caption: "Vi er profesionelle håndværkere" },
+    { image: "/placeholder-house.png", caption: "Din facade klarer vi også!" },
   ],
 };
 
