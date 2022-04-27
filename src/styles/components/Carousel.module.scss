@@ -1,7 +1,12 @@
 @import "../common/colours.scss";
+@import "../common/breakpoints.scss";
 .carouselContainer {
-  height: 500px;
+  height: 250px;
   width: 100%;
+  @include sm {
+    height: 350px;
+  }
+  
   justify-content: center;
   position: relative;
   display: flex;
@@ -10,10 +15,9 @@
 
   // Slides
 .slide {
-  max-height: 500px;
   position: absolute;
   width: 100%;
-  height: auto;
+  height: 100%;
 }
 
   .slideHidden {
@@ -23,7 +27,8 @@
   .image {
     border-radius: 10px;
     width: 100%;
-    max-height: 500px;
+    height: 100%;
+    object-fit: contain;
   }
   // Slider chevrons
   .prev,
@@ -61,17 +66,7 @@
     overflow: auto;
   }
 
-  
-
-  // // Animations
-
-  // .slideLeft{
-  //   transform: translateX(105%);
-  // }
-  // .slideRight{
-  //   transform: translateX(-105%);
-  // }
-
+// ----- Animations -------
 .slideIn {
   animation: slide-in 0.5s forwards ease;
 }
@@ -92,6 +87,10 @@
   100% { transform: translate(-105%)}
   
 }
+
+
+
+// ------ End of animations ------
 }
 // End dots
 .dot {

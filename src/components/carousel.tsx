@@ -43,7 +43,7 @@ const Carousel: FC<CarouselProps> = ({ slides }) => {
               key={idx}
             >
               <img src={s.image} className={style.image} alt="" />
-              <span className={style.caption}>{s.caption}</span>
+              <div className={style.caption}>{s.caption}</div>
             </div>
           );
         })}
