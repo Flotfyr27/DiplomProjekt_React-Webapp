@@ -6,6 +6,7 @@
   margin: 0;
 }
 .containerPadding {
+  justify-content: center;
   padding: 1rem 10%;
   @include sm {
     padding: 2rem 25%;
