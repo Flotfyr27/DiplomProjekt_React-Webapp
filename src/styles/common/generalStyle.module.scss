@@ -1,0 +1,9 @@
+@import "./colours.scss";
+
+:export {
+    primaryColour : $primaryColour;
+    accentColour : $accentColour;
+    accentDarkColour : $accentDarkColour;
+    navbarBackgroundColour : $navbarBackgroundColour;
+    logoBackgroundColour: $logoBackgroundColour;
+}

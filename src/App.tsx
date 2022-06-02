@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Project from "./pages/Project";
 import Helmet from "react-helmet";
-import Navbar from "./components/navbar";
+import NavBarWithSubnavigation from "./components/widget/navigation";
 import Footer from "./components/footer";
 function App() {
   return (
@@ -12,7 +12,8 @@ function App() {
       <Helmet>
         <title>Tømrerfirmaet Nikolaj Jensen ApS</title>
       </Helmet>
-      <Navbar />
+      <NavBarWithSubnavigation />
+      {/* <Navbar /> */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="projekter" element={<Project />} />
