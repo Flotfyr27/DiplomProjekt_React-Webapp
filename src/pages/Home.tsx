@@ -1,3 +1,4 @@
+import { Box, Flex, Heading, Image, useMediaQuery } from "@chakra-ui/react";
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import Carousel, { CarouselProps } from "../components/carousel";
@@ -16,18 +17,28 @@ const Home: FC = () => {
   // Carousel med ting de laver
   // Kort om dem
 
+  const [isMobile] = useMediaQuery("(max-width: 600px)");
+  const [isTablet] = useMediaQuery("(max-width: 1000px)");
+
   return (
     <>
-      <BaseContainer>
-        <Header
-          header={"Tømrerfirmaet Nikolaj Jensen ApS".toLocaleUpperCase()}
-          subheader={"Din lokale håndværker".toLocaleUpperCase()}
-        />
-      </BaseContainer>
-
-      <BaseContainer>
-        <Carousel {...carouselProps} />
-      </BaseContainer>
+      <Flex align={"center"} position={"relative"}>
+        <Box
+          pos={"absolute"}
+          left={`${isTablet ? "15%" : "20%"}`}
+          zIndex={2}
+          alignContent={"center"}
+          alignItems={"center"}
+        >
+          <Heading fontSize={`${isMobile ? "1rem" : "4rem"}`} color={"#111"}>
+            Kvalitetsarbejde siden 2021
+          </Heading>
+          <Heading fontSize={`${isMobile ? "1.5rem" : "6rem"}`} color={"#111"}>
+            Din lokale tømrer
+          </Heading>
+        </Box>
+        <Image src={"./carpenter.jpg"} fit={"cover"} opacity={"0.47"} />
+      </Flex>
     </>
   );
 };
