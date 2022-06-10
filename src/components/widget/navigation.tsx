@@ -30,34 +30,10 @@ interface NavItem {
 const NAV_ITEMS: Array<NavItem> = [
   {
     label: "Projekter",
-    children: [
-      {
-        label: "Gulve",
-        subLabel: "Få dem lagt, slebet, eller fjernet",
-        href: "projekter/gulv",
-      },
-      {
-        label: "Køkkener",
-        subLabel: "Bordplader, vægge, og udsugning",
-        href: "projekter/køkken",
-      },
-    ],
     href: "projekter",
   },
   {
     label: "Om os",
-    // children: [
-    //   {
-    //     label: "Hvem er vi?",
-    //     subLabel: "Få dem lagt, slebet, eller fjernet",
-    //     href: "projekter/gulv",
-    //   },
-    //   {
-    //     label: "Køkkener",
-    //     subLabel: "Bordplader, vægge, og udsugning",
-    //     href: "projekter/køkken",
-    //   },
-    // ],
     href: "om-os",
   },
 ];
@@ -105,14 +81,14 @@ export default function NavBarWithSubnavigation() {
           direction={"row"}
           spacing={6}
         >
-          <Button
-            as={"a"}
+          <Link
+            as={Button}
             fontSize={"sm"}
             fontWeight={400}
             onClick={() => navigate("/kontakt")}
           >
             Kontakt
-          </Button>
+          </Link>
         </Stack>
       </Flex>
       <Collapse in={isOpen} animateOpacity>

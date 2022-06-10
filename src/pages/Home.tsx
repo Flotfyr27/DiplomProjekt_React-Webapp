@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import Carousel, { CarouselProps } from "../components/carousel";
+import Header from "../components/header";
 import BaseContainer from "../structural-components/base-container";
 
 const carouselProps: CarouselProps = {
@@ -17,6 +18,13 @@ const Home: FC = () => {
 
   return (
     <>
+      <BaseContainer>
+        <Header
+          header={"Tømrerfirmaet Nikolaj Jensen ApS".toLocaleUpperCase()}
+          subheader={"Din lokale håndværker".toLocaleUpperCase()}
+        />
+      </BaseContainer>
+
       <BaseContainer>
         <Carousel {...carouselProps} />
       </BaseContainer>
