@@ -37,7 +37,7 @@ const Home: FC = () => {
             Din lokale tømrer
           </Heading>
         </Box>
-        <Image src={"./carpenter.jpg"} fit={"cover"} opacity={"0.47"} />
+        <Image src={"./gallery/carpenter.jpg"} fit={"cover"} opacity={"0.47"} />
       </Flex>
     </>
   );

@@ -5,50 +5,55 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
+  Grid,
+  GridItem,
   Heading,
   HStack,
+  Image,
   List,
   VStack,
 } from "@chakra-ui/react";
 import { FC } from "react";
 import Helmet from "react-helmet";
 import Header from "../components/header";
-import BaseContainer from "../structural-components/base-container";
-import SectionHeaderContainer from "../structural-components/section-header-container";
+import ContactForm from "../components/widget/contactForm";
 
 const Project: FC = () => {
   return (
-    <div>
+    <>
       <Helmet>
         <title>Projekter</title>
       </Helmet>
-      <SectionHeaderContainer>
-        <Header header={"Projekter vi tidligere har foretaget"} />
-      </SectionHeaderContainer>
-      <BaseContainer>
-        <Accordion allowToggle>
-          <AccordionItem>
-            <h2>
-              <AccordionButton>
-                <Box flex={1} textAlign={"left"}>
-                  Section 1 title
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
-            </AccordionPanel>
-          </AccordionItem>
-        </Accordion>
-      </BaseContainer>
-      <BaseContainer>
-        <List></List>
-      </BaseContainer>
-    </div>
+      <Grid
+        h={"1000px"}
+        templateRows={"50px repeat(3,1fr)"}
+        templateColumns={"repeat(3, 1fr)"}
+        gap={3}
+        p={"2rem"}
+      >
+        <GridItem bg={"white"} colSpan={3} rowSpan={1}>
+          <Header
+            header={"Vi har en lang række tilbud, der passer netop dig!"}
+          />
+        </GridItem>
+        <GridItem bg={"red"} colSpan={1}>
+          <Image src={"./gallery/insulation.jpg"} />
+        </GridItem>
+
+        <GridItem bg={"green"} colSpan={1}>
+          <Image src={"./gallery/renovation.jpg"} />
+        </GridItem>
+        <GridItem colSpan={1} rowSpan={2}>
+          <ContactForm />
+        </GridItem>
+        <GridItem bg={"green"} colSpan={1}>
+          <Image src={"./gallery/roof.jpg"} />
+        </GridItem>
+        <GridItem bg={"green"} colSpan={1}>
+          <Image src={"./gallery/terrace.jpg"} />
+        </GridItem>
+      </Grid>
+    </>
   );
 };
 export default Project;
