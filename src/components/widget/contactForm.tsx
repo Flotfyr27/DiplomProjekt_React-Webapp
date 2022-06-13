@@ -12,35 +12,98 @@ import {
   Textarea,
   Button,
   FormErrorMessage,
+  useToast,
 } from "@chakra-ui/react";
 import { MdPerson } from "react-icons/md";
 import { FC, useState } from "react";
 import Header from "../header";
+import emailjs from "@emailjs/browser";
+
+const phoneRegex = /^\d{8}$/gm;
+const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/gm;
+
+export const isPhoneCorrect = (phone: string): boolean => {
+  if (phone.length == 8) {
+    const input = phone.match(phoneRegex);
+    if (input?.length == 1) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
+};
+
+export const isEmailError = (_email: string): boolean => {
+  const input = _email.match(emailRegex);
+  return input?.length == 1 ? false : true;
+};
 
 const ContactForm: FC = () => {
   const [email, setEmail] = useState("");
   const [phoneNum, setPhoneNum] = useState("");
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
-  const phoneRegex = new RegExp("/^[0-9]{8}$/gm");
+  const [isButtonLoading, setIsButtonLoading] = useState(false);
 
-  const phoneError = !verifyPhoneNumber(phoneNum) && phoneNum != "";
+  const phoneError = isPhoneCorrect(phoneNum) == false && phoneNum != "";
+  const emailError = isEmailError(email);
 
-  console.log(phoneError);
-  function verifyPhoneNumber(phone: string): boolean {
-    if (phone.length == 8) {
-      const input = phone.match(phoneRegex);
-      if (input?.length == 1) {
-        return true;
-      } else {
-        return false;
+  const toast = useToast();
+
+  const onApply = () => {
+    console.log("Toast: ", toast);
+    toast({
+      title: "Knap trykket",
+    });
+    if (name.length > 1) {
+      if (!phoneError) {
+        if (!emailError) {
+          if (message != "") {
+            console.log(packageFormData());
+            //sendFormData(packageFormData());
+          }
+        }
       }
-    } else {
-      return false;
     }
+  };
+  function packageFormData() {
+    return {
+      from_name: name,
+      phone_num: phoneNum,
+      message: message,
+      reply_to: email,
+    };
   }
 
-  const onApply = () => {};
+  function sendFormData(_emailParams: any) {
+    emailjs
+      .send("service_qk4jtlo", "default", _emailParams, "MwU9pUYvfqDHumEA2")
+      .then(
+        (response) => {
+          console.log("SUCCESS!", response.status, response.text);
+          toast({
+            title: "Email sendt!",
+            description: "Tak for din mail",
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+          });
+        },
+        (err) => {
+          console.log("FAILED...", err);
+          toast({
+            title: "Fejl!",
+            description: "Der skete en fejl, prøv igen",
+            status: "error",
+            duration: 3000,
+            isClosable: true,
+          });
+        }
+      );
+    setIsButtonLoading(false);
+  }
 
   return (
     <Grid
@@ -53,7 +116,7 @@ const ContactForm: FC = () => {
     >
       <GridItem colSpan={2} p={"1rem"} rowSpan={1}>
         <Header
-          header={"Kontakt os"}
+          header={"Udfyld formularen -"}
           subheader={"Så vender vi tilbage hurtigst muligt"}
         />
       </GridItem>
@@ -97,25 +160,36 @@ const ContactForm: FC = () => {
         </FormControl>
       </GridItem>
       <GridItem p={"1rem"} colSpan={2}>
-        <FormControl isRequired>
+        <FormControl isRequired isInvalid={emailError}>
           <FormLabel>Email</FormLabel>
           <InputGroup>
             <InputLeftElement
               pointerEvents={"none"}
               children={<EmailIcon color={"gray.300"} />}
             />
-            <Input type={"email"} />
+            <Input
+              type={"email"}
+              onChange={(event) => setEmail(event.target.value)}
+            />
           </InputGroup>
+          {emailError && (
+            <FormErrorMessage>
+              Indtast venligst en gyldig email.
+            </FormErrorMessage>
+          )}
         </FormControl>
       </GridItem>
       <GridItem p={"1rem"} colSpan={2}>
         <FormControl isRequired>
           <FormLabel>Din besked</FormLabel>
-          <Textarea h={"100%"} />
+          <Textarea
+            h={"100%"}
+            onChange={(event) => setMessage(event.target.value)}
+          />
         </FormControl>
       </GridItem>
       <GridItem p={"1rem"} colSpan={2}>
-        <Button type="submit">Send besked</Button>
+        <Button onClick={() => onApply()}>Send besked</Button>
       </GridItem>
     </Grid>
   );

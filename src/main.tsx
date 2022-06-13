@@ -1,11 +1,12 @@
-import React from "react";
-import ReactDOM from "react-dom";
 import { ChakraProvider } from "@chakra-ui/provider";
 import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { extendTheme } from "@chakra-ui/react";
+import { createRoot } from "react-dom/client";
 
+const container = document.getElementById("root");
+const root = createRoot(container!);
 const colours = {
   brand: {
     900: "#1a365d",
@@ -15,12 +16,10 @@ const colours = {
 };
 
 const theme = extendTheme({ colours });
-
-ReactDOM.render(
+root.render(
   <ChakraProvider theme={theme}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </ChakraProvider>,
-  document.getElementById("root")
+  </ChakraProvider>
 );
