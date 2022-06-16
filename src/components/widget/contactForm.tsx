@@ -18,6 +18,7 @@ import { MdPerson } from "react-icons/md";
 import { FC, useState } from "react";
 import Header from "../header";
 import emailjs from "@emailjs/browser";
+import fetchMock from "fetch-mock";
 
 const phoneRegex = /^\d{8}$/gm;
 const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/gm;
@@ -65,10 +66,31 @@ const ContactForm: FC = () => {
         if (!emailError) {
           if (message != "") {
             sendFormData(packageFormData(), true);
+            return;
           }
+          toast({
+            title: "Data mangler",
+            description: "Data var forkert/mangler",
+            status: "info",
+          });
         }
+        toast({
+          title: "Data mangler",
+          description: "Data var forkert/mangler",
+          status: "info",
+        });
       }
+      toast({
+        title: "Data mangler",
+        description: "Data var forkert/mangler",
+        status: "info",
+      });
     }
+    toast({
+      title: "Data mangler",
+      description: "Data var forkert/mangler",
+      status: "info",
+    });
   };
   function packageFormData() {
     return {
@@ -79,34 +101,63 @@ const ContactForm: FC = () => {
     };
   }
 
+  function mockSendFormData() {
+    const ms = 1600;
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
   function sendFormData(_emailParams: any, mock: boolean) {
     setIsButtonLoading(true);
-    emailjs
-      .send("service_qk4jtlo", "default", _emailParams, "MwU9pUYvfqDHumEA2")
-      .then((response) => {
-        console.log("SUCCESS!", response.status, response.text);
-        toast({
-          title: "Email sendt!",
-          description: "Tak for din mail",
-          status: "success",
-          duration: 3000,
-          isClosable: true,
+    if (mock) {
+      mockSendFormData()
+        .then(() => {
+          console.log("SUCCESS!", 200, "OK");
+          console.log(_emailParams);
+          toast({
+            title: "Email sendt!",
+            description: "Funktion ikke tilgænglig endnu",
+            status: "success",
+            isClosable: true,
+          });
+        })
+        .catch((err) => {
+          console.log("Error!: ", err);
+          toast({
+            title: "FEJL!",
+            description: "Der forekom en fejl, prøv igen",
+            status: "error",
+            isClosable: true,
+          });
+        })
+        .finally(() => setIsButtonLoading(false));
+    } else {
+      emailjs
+        .send("service_qk4jtlo", "default", _emailParams, "MwU9pUYvfqDHumEA2")
+        .then((response) => {
+          console.log("SUCCESS!", response.status, response.text);
+          toast({
+            title: "Email sendt!",
+            description: "Tak for din mail",
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+          });
+        })
+        .catch((err) => {
+          console.log("FAILED...", err);
+          toast({
+            title: "Fejl!",
+            description: "Der skete en fejl, prøv igen",
+            status: "error",
+            duration: 3000,
+            isClosable: true,
+          });
+        })
+        .finally(() => {
+          clearDataFromForm();
+          setIsButtonLoading(false);
         });
-      })
-      .catch((err) => {
-        console.log("FAILED...", err);
-        toast({
-          title: "Fejl!",
-          description: "Der skete en fejl, prøv igen",
-          status: "error",
-          duration: 3000,
-          isClosable: true,
-        });
-      })
-      .finally(() => {
-        clearDataFromForm();
-        setIsButtonLoading(false);
-      });
+    }
   }
 
   return (
