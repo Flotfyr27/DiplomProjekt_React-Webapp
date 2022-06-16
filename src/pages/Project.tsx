@@ -36,20 +36,20 @@ const Project: FC = () => {
             header={"Vi har en lang række tilbud, der passer netop dig!"}
           />
         </GridItem>
-        <GridItem bg={"red"} colSpan={1}>
+        <GridItem colSpan={1}>
           <Image src={"./gallery/insulation.jpg"} />
         </GridItem>
 
-        <GridItem bg={"green"} colSpan={1}>
+        <GridItem colSpan={1}>
           <Image src={"./gallery/renovation.jpg"} />
         </GridItem>
         <GridItem colSpan={1} rowSpan={2}>
           <ContactForm />
         </GridItem>
-        <GridItem bg={"green"} colSpan={1}>
+        <GridItem colSpan={1}>
           <Image src={"./gallery/roof.jpg"} />
         </GridItem>
-        <GridItem bg={"green"} colSpan={1}>
+        <GridItem colSpan={1}>
           <Image src={"./gallery/terrace.jpg"} />
         </GridItem>
       </Grid>
