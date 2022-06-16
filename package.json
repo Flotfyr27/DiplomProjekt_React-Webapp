@@ -6,11 +6,12 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "jest --passWithNoTests"
+    "test": "jest --passWithNoTests",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.0.15",
-    "@chakra-ui/react": "^1.7.0",
+    "@chakra-ui/react": "^1.8.8",
     "@emailjs/browser": "^3.6.2",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
@@ -19,6 +20,7 @@
     "@fortawesome/react-fontawesome": "^0.1.18",
     "framer-motion": "^6.3.10",
     "i18next": "^21.8.9",
+    "patch-package": "^6.4.7",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-helmet": "^6.1.0",
@@ -42,6 +44,6 @@
     "vite": "^2.7.0"
   },
   "overrides": {
-    "csstype": "3.0.10"
+    "csstype": "2.6.20"
   }
 }
