@@ -5,13 +5,11 @@ import {
   Collapse,
   Flex,
   Link,
-  MenuButton,
   Popover,
   PopoverContent,
   PopoverTrigger,
   Stack,
   Text,
-  useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -45,14 +43,14 @@ export default function NavBarWithSubnavigation() {
   return (
     <Box>
       <Flex
-        bg={useColorModeValue("green", "gray.800")}
-        color={useColorModeValue("gray.600", "white")}
+        bg={"green"}
+        color={"gray.600"}
         minHeight={"50px"}
         py={{ base: 2 }}
         px={{ base: 4 }}
         borderBottom={1}
         borderStyle={"solid"}
-        borderColor={useColorModeValue("gray.200", "gray.900")}
+        borderColor={"gray.200"}
         align={"center"}
       >
         <Flex
@@ -99,9 +97,9 @@ export default function NavBarWithSubnavigation() {
 }
 
 const DesktopNav = () => {
-  const linkColor = useColorModeValue("gray.600", "gray.200");
-  const linkHoverColor = useColorModeValue("gray.800", "white");
-  const popoverContentBgColor = useColorModeValue("white", "gray.800");
+  const linkColor = "gray.600";
+  const linkHoverColor = "gray.800";
+  const popoverContentBgColor = "white";
   const navigate = useNavigate();
 
   return (
@@ -155,7 +153,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
       display={"block"}
       p={2}
       rounded={"md"}
-      _hover={{ bg: useColorModeValue("green.50", "gray.900") }}
+      _hover={{ bg: "green.50" }}
     >
       <Stack direction={"row"} align={"center"}>
         <Box>
@@ -186,11 +184,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
 
 const MobileNav = () => {
   return (
-    <Stack
-      bg={useColorModeValue("white", "gray.800")}
-      p={4}
-      display={{ md: "none" }}
-    >
+    <Stack bg={"white"} p={4} display={{ md: "none" }}>
       {NAV_ITEMS.map((navItem) => (
         <MobileNavItem key={navItem.label} {...navItem} />
       ))}
@@ -212,11 +206,7 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
         align={"center"}
         _hover={{ textDecoration: "none" }}
       >
-        <Text
-          fontWeight={600}
-          color={useColorModeValue("gray.600", "gray.200")}
-          _hover={{ bg: "green" }}
-        >
+        <Text fontWeight={600} color={"gray.600"} _hover={{ bg: "green" }}>
           {label}
         </Text>
         {children && (
@@ -236,7 +226,7 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
           paddingLeft={4}
           borderLeft={1}
           borderStyle={"solid"}
-          borderColor={useColorModeValue("gray.200", "gray.700")}
+          borderColor={"gray.200"}
           align={"start"}
         >
           {children &&
