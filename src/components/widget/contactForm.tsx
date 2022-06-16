@@ -13,6 +13,7 @@ import {
   Button,
   FormErrorMessage,
   useToast,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { MdPerson } from "react-icons/md";
 import { FC, useState } from "react";
@@ -50,7 +51,7 @@ const ContactForm: FC = () => {
 
   const phoneError = isPhoneCorrect(phoneNum) == false && phoneNum != "";
   const emailError = isEmailError(email) == true && email != "";
-
+  const [isSmallDevice] = useMediaQuery("(max-width: 600px)");
   const toast = useToast();
 
   function clearDataFromForm() {
@@ -58,6 +59,13 @@ const ContactForm: FC = () => {
     setPhoneNum("");
     setName("");
     setMessage("");
+  }
+  function missingDataToast() {
+    toast({
+      title: "Data mangler",
+      description: "Data var forkert/mangler",
+      status: "info",
+    });
   }
 
   const onApply = () => {
@@ -68,29 +76,13 @@ const ContactForm: FC = () => {
             sendFormData(packageFormData(), true);
             return;
           }
-          toast({
-            title: "Data mangler",
-            description: "Data var forkert/mangler",
-            status: "info",
-          });
+          missingDataToast();
         }
-        toast({
-          title: "Data mangler",
-          description: "Data var forkert/mangler",
-          status: "info",
-        });
+        missingDataToast();
       }
-      toast({
-        title: "Data mangler",
-        description: "Data var forkert/mangler",
-        status: "info",
-      });
+      missingDataToast();
     }
-    toast({
-      title: "Data mangler",
-      description: "Data var forkert/mangler",
-      status: "info",
-    });
+    missingDataToast();
   };
   function packageFormData() {
     return {
@@ -113,6 +105,7 @@ const ContactForm: FC = () => {
         .then(() => {
           console.log("SUCCESS!", 200, "OK");
           console.log(_emailParams);
+          clearDataFromForm();
           toast({
             title: "Email sendt!",
             description: "Funktion ikke tilgænglig endnu",
@@ -159,23 +152,26 @@ const ContactForm: FC = () => {
         });
     }
   }
-
+  console.log(isSmallDevice);
   return (
     <Grid
-      templateRows={"100px 100px 100px 1fr 70px"}
-      templateColumns={"repeat(2, 1fr)"}
+      templateRows={`auto ${
+        isSmallDevice ? "100px 100px" : "100px"
+      } 100px 1fr 70px`}
+      templateColumns={`${isSmallDevice ? "1fr" : "1fr 1fr"}`}
       p={"1rem"}
       h={"100%"}
-      boxShadow={"2xl"}
+      w={"100%"}
+      boxShadow={"lg"}
       rounded={"lg"}
     >
-      <GridItem colSpan={2} p={"1rem"} rowSpan={1}>
+      <GridItem colSpan={isSmallDevice ? 1 : 2} p={"1rem"} rowSpan={1}>
         <Header
           header={"Udfyld formularen -"}
           subheader={"Så vender vi tilbage hurtigst muligt"}
         />
       </GridItem>
-      <GridItem p={"1rem"} colSpan={1}>
+      <GridItem p={"1rem"} colSpan={1} rowSpan={1}>
         <FormControl isRequired>
           <FormLabel>Navn</FormLabel>
           <InputGroup>
@@ -214,7 +210,7 @@ const ContactForm: FC = () => {
           )}
         </FormControl>
       </GridItem>
-      <GridItem p={"1rem"} colSpan={2}>
+      <GridItem p={"1rem"} colSpan={isSmallDevice ? 1 : 2}>
         <FormControl isRequired isInvalid={emailError}>
           <FormLabel>Email</FormLabel>
           <InputGroup>
@@ -234,16 +230,15 @@ const ContactForm: FC = () => {
           )}
         </FormControl>
       </GridItem>
-      <GridItem p={"1rem"} colSpan={2}>
-        <FormControl isRequired>
-          <FormLabel>Din besked</FormLabel>
-          <Textarea
-            h={"100%"}
-            onChange={(event) => setMessage(event.target.value)}
-          />
-        </FormControl>
+      <GridItem p={"1rem"} colSpan={isSmallDevice ? 1 : 2}>
+        <Box>
+          <FormControl isRequired>
+            <FormLabel>Din besked</FormLabel>
+            <Textarea onChange={(event) => setMessage(event.target.value)} />
+          </FormControl>
+        </Box>
       </GridItem>
-      <GridItem p={"1rem"} colSpan={2}>
+      <GridItem p={"1rem"} colSpan={isSmallDevice ? 1 : 2} rowSpan={1}>
         <Button isLoading={isButtonLoading} onClick={() => onApply()}>
           Send besked
         </Button>
