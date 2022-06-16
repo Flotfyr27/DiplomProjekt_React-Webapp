@@ -3,10 +3,11 @@ import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { extendTheme } from "@chakra-ui/react";
-import { createRoot } from "react-dom/client";
+// import { createRoot } from "react-dom/client";
+import {render} from "react-dom"
 
-const container = document.getElementById("root");
-const root = createRoot(container!);
+// const container = document.getElementById("root");
+// const root = createRoot(container!);
 const colours = {
   brand: {
     900: "#1a365d",
@@ -16,10 +17,18 @@ const colours = {
 };
 
 const theme = extendTheme({ colours });
-root.render(
-  <ChakraProvider theme={theme}>
+// root.render(
+//   <ChakraProvider theme={theme}>
+//     <BrowserRouter>
+//       <App />
+//     </BrowserRouter>
+//   </ChakraProvider>
+// );
+const container = document.getElementById("root");
+render(
+<ChakraProvider theme={theme}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </ChakraProvider>
-);
+  </ChakraProvider>, 
+container);

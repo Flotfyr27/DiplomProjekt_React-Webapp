@@ -48,21 +48,23 @@ const ContactForm: FC = () => {
   const [isButtonLoading, setIsButtonLoading] = useState(false);
 
   const phoneError = isPhoneCorrect(phoneNum) == false && phoneNum != "";
-  const emailError = isEmailError(email);
+  const emailError = isEmailError(email) == true && email != "";
 
   const toast = useToast();
 
+  function clearDataFromForm() {
+    setEmail("");
+    setPhoneNum("");
+    setName("");
+    setMessage("");
+  }
+
   const onApply = () => {
-    console.log("Toast: ", toast);
-    toast({
-      title: "Knap trykket",
-    });
     if (name.length > 1) {
       if (!phoneError) {
         if (!emailError) {
           if (message != "") {
-            console.log(packageFormData());
-            //sendFormData(packageFormData());
+            sendFormData(packageFormData(), true);
           }
         }
       }
@@ -77,32 +79,34 @@ const ContactForm: FC = () => {
     };
   }
 
-  function sendFormData(_emailParams: any) {
+  function sendFormData(_emailParams: any, mock: boolean) {
+    setIsButtonLoading(true);
     emailjs
       .send("service_qk4jtlo", "default", _emailParams, "MwU9pUYvfqDHumEA2")
-      .then(
-        (response) => {
-          console.log("SUCCESS!", response.status, response.text);
-          toast({
-            title: "Email sendt!",
-            description: "Tak for din mail",
-            status: "success",
-            duration: 3000,
-            isClosable: true,
-          });
-        },
-        (err) => {
-          console.log("FAILED...", err);
-          toast({
-            title: "Fejl!",
-            description: "Der skete en fejl, prøv igen",
-            status: "error",
-            duration: 3000,
-            isClosable: true,
-          });
-        }
-      );
-    setIsButtonLoading(false);
+      .then((response) => {
+        console.log("SUCCESS!", response.status, response.text);
+        toast({
+          title: "Email sendt!",
+          description: "Tak for din mail",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+      })
+      .catch((err) => {
+        console.log("FAILED...", err);
+        toast({
+          title: "Fejl!",
+          description: "Der skete en fejl, prøv igen",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+      })
+      .finally(() => {
+        clearDataFromForm();
+        setIsButtonLoading(false);
+      });
   }
 
   return (
@@ -189,7 +193,9 @@ const ContactForm: FC = () => {
         </FormControl>
       </GridItem>
       <GridItem p={"1rem"} colSpan={2}>
-        <Button onClick={() => onApply()}>Send besked</Button>
+        <Button isLoading={isButtonLoading} onClick={() => onApply()}>
+          Send besked
+        </Button>
       </GridItem>
     </Grid>
   );

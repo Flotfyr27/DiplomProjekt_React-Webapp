@@ -4,7 +4,7 @@ import svgr from "@honkhonk/vite-plugin-svgr"
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [svgr(), react()],
+  plugins: [react(), svgr()],
   build: {
     outDir: "dist",
     emptyOutDir: true
