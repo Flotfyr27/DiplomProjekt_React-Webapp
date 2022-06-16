@@ -29,6 +29,7 @@ const NAV_ITEMS: Array<NavItem> = [
   {
     label: "Projekter",
     href: "projekter",
+    children: [{ label: "Test", href: "kontakt" }],
   },
   {
     label: "Om os",
@@ -198,17 +199,22 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
 
   return (
     <Stack spacing={4} onClick={children && onToggle}>
-      <Flex
-        py={2}
-        as={NavLink}
-        to={`${href ?? "#"}`}
-        justify={"space-between"}
-        align={"center"}
-        _hover={{ textDecoration: "none" }}
-      >
-        <Text fontWeight={600} color={"gray.600"} _hover={{ bg: "green" }}>
-          {label}
-        </Text>
+      <Flex justify={"space-between"} align={"center"}>
+        <Flex
+          py={2}
+          as={Link}
+          onClick={() => {
+            navigate(`${href}`);
+          }}
+          // to={`${href ?? "#"}`}
+          justify={"space-between"}
+          align={"center"}
+          _hover={{ textDecoration: "none" }}
+        >
+          <Text fontWeight={600} color={"gray.600"}>
+            {label}
+          </Text>
+        </Flex>
         {children && (
           <Icon
             as={ChevronDownIcon}
