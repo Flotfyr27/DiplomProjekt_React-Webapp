@@ -8,6 +8,7 @@ import Helmet from "react-helmet";
 import NavBarWithSubnavigation from "./components/widget/navigation";
 import Footer from "./components/footer";
 import Flooring from "./pages/Flooring";
+import GalleryPage from "./pages/GalleryPage";
 function App() {
   return (
     <div className="App">
@@ -21,6 +22,7 @@ function App() {
         <Route path="projekter" element={<Project />} />
         <Route path="projekter/gulve" element={<Flooring />} />
         <Route path="om-os" element={<About />} />
+        <Route path="galleri" element={<GalleryPage />} />
         <Route path="kontakt" element={<Contact />} />
       </Routes>
       <Footer />

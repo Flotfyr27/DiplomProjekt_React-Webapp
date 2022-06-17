@@ -35,6 +35,10 @@ const NAV_ITEMS: Array<NavItem> = [
     label: "Om os",
     href: "om-os",
   },
+  {
+    label: "Galleri",
+    href: "galleri",
+  },
 ];
 
 export default function NavBarWithSubnavigation() {

@@ -16,7 +16,6 @@ import {
 } from "@chakra-ui/react";
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
-import BaseContainer from "../structural-components/base-container";
 
 const Flooring: FC = () => {
   const [isSmallDevice] = useMediaQuery("(max-width: 600px)");
