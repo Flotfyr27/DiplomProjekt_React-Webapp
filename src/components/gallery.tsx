@@ -14,6 +14,12 @@ import { FC, useEffect, useMemo, useState } from "react";
 const Gallery: FC = () => {
   const [images, setImages] = useState([""]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const imageTemplate: string[] = [
+    "/gallery/insulation.jpg",
+    "/gallery/renovation.jpg",
+    "/gallery/roof.jpg",
+    "/gallery/terrace.jpg",
+  ];
 
   useEffect(() => {
     getImages()
@@ -26,8 +32,8 @@ const Gallery: FC = () => {
     return new Promise((resolve) => {
       const imgArr: string[] = [];
       for (let i = 1; i < 25; i++) {
-        const idx = Math.floor(Math.random() * 4 + 1);
-        imgArr.push(`/demoGallery/${idx}.jpg`);
+        const idx = Math.floor(Math.random() * 4);
+        imgArr.push(`${imageTemplate[idx]}`);
       }
       resolve(imgArr);
     });
