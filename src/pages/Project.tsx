@@ -1,19 +1,4 @@
-import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  Box,
-  Grid,
-  GridItem,
-  Heading,
-  HStack,
-  Image,
-  List,
-  useMediaQuery,
-  VStack,
-} from "@chakra-ui/react";
+import { Grid, GridItem, Image, useMediaQuery } from "@chakra-ui/react";
 import { FC } from "react";
 import Helmet from "react-helmet";
 import Header from "../components/header";
@@ -21,7 +6,6 @@ import ContactForm from "../components/widget/contactForm";
 
 const Project: FC = () => {
   const [isSmallDevice] = useMediaQuery("(max-width: 600px)");
-  console.log(isSmallDevice);
   return (
     <>
       <Helmet>
@@ -48,18 +32,33 @@ const Project: FC = () => {
         <GridItem colSpan={1}>
           <Image src={"./gallery/renovation.jpg"} />
         </GridItem>
+        {isSmallDevice ? (
+          <>
+            <GridItem colSpan={1}>
+              <Image src={"./gallery/roof.jpg"} />
+            </GridItem>
 
-        <GridItem colSpan={1}>
-          <Image src={"./gallery/roof.jpg"} />
-        </GridItem>
+            <GridItem colSpan={1}>
+              <Image src={"./gallery/terrace.jpg"} />
+            </GridItem>
 
-        <GridItem colSpan={1}>
-          <Image src={"./gallery/terrace.jpg"} />
-        </GridItem>
-
-        <GridItem colSpan={1} rowSpan={2}>
-          <ContactForm />
-        </GridItem>
+            <GridItem colSpan={1} rowSpan={2}>
+              <ContactForm />
+            </GridItem>
+          </>
+        ) : (
+          <>
+            <GridItem colSpan={1} rowSpan={2}>
+              <ContactForm />
+            </GridItem>
+            <GridItem colSpan={1}>
+              <Image src={"./gallery/roof.jpg"} />
+            </GridItem>
+            <GridItem colSpan={1}>
+              <Image src={"./gallery/terrace.jpg"} />
+            </GridItem>
+          </>
+        )}
       </Grid>
     </>
   );

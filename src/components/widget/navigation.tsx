@@ -29,7 +29,7 @@ const NAV_ITEMS: Array<NavItem> = [
   {
     label: "Projekter",
     href: "projekter",
-    children: [{ label: "Test", href: "kontakt" }],
+    children: [{ label: "Gulve", href: "projekter/gulve" }],
   },
   {
     label: "Om os",

@@ -152,7 +152,6 @@ const ContactForm: FC = () => {
         });
     }
   }
-  console.log(isSmallDevice);
   return (
     <Grid
       templateRows={`auto ${

@@ -49,7 +49,7 @@ const ContactInfo: FC = () => {
 
   return (
     <Box w={"100%"} boxShadow={"xl"} p={"2rem"}>
-      <Heading>{addressIntroduction}</Heading>
+      <Heading pb={5}>{addressIntroduction}</Heading>
       <Divider />
       <VStack w={"100%"}>
         <Flex align={"center"} justify={"space-between"} w={flexWidth}>

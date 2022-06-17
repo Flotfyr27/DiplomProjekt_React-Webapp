@@ -1,4 +1,4 @@
-import { Box, Grid, GridItem, SimpleGrid } from "@chakra-ui/react";
+import { Box, Container, Grid, GridItem, SimpleGrid } from "@chakra-ui/react";
 import { FC } from "react";
 import Helmet from "react-helmet";
 import Header from "../components/header";
@@ -12,13 +12,15 @@ const Project: FC = () => {
       <Helmet>
         <title>Kontakt</title>
       </Helmet>
-      <SimpleGrid minChildWidth={"200px"} p={"2rem"} gap={4}>
-        <Box>
-          <ContactInfo />
-          <MapLocation />
-        </Box>
-        <ContactForm />
-      </SimpleGrid>
+      <Container maxW={"container.xl"}>
+        <SimpleGrid minChildWidth={"200px"} p={"2rem"} gap={4}>
+          <Box>
+            <ContactInfo />
+            <MapLocation />
+          </Box>
+          <ContactForm />
+        </SimpleGrid>
+      </Container>
     </div>
   );
 };

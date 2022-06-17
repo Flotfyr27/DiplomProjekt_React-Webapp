@@ -7,10 +7,8 @@ import Contact from "./pages/Contact";
 import Helmet from "react-helmet";
 import NavBarWithSubnavigation from "./components/widget/navigation";
 import Footer from "./components/footer";
-import { useEffect } from "react";
-import { Button, useToast } from "@chakra-ui/react";
+import Flooring from "./pages/Flooring";
 function App() {
-  const toast = useToast();
   return (
     <div className="App">
       <Helmet>
@@ -18,8 +16,10 @@ function App() {
       </Helmet>
       <NavBarWithSubnavigation />
       <Routes>
+        <Route index element={<Home />} />
         <Route path="/" element={<Home />} />
         <Route path="projekter" element={<Project />} />
+        <Route path="projekter/gulve" element={<Flooring />} />
         <Route path="om-os" element={<About />} />
         <Route path="kontakt" element={<Contact />} />
       </Routes>
