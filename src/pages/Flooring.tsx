@@ -15,6 +15,7 @@ import {
   useMediaQuery,
 } from "@chakra-ui/react";
 import { FC } from "react";
+import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
 
 const Flooring: FC = () => {
@@ -27,84 +28,90 @@ const Flooring: FC = () => {
     "Sed nec sapien faucibus, lacinia leo elementum, feugiat elit.",
   ];
   return (
-    <Container maxW={"container.xl"}>
-      <Grid
-        templateColumns={`${isSmallDevice ? "1fr" : "1fr 1fr"}`}
-        p={"3rem"}
-        templateRows={"auto auto 1fr"}
-        gap={4}
-      >
-        <GridItem rowSpan={1}>
-          <Heading size={"xl"} textAlign={"left"} pb={5}>
-            Skal du have lagt nyt gulv eller installeret gulvvarme?
-          </Heading>
-          <Text textAlign={"left"}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-            tortor elit, varius et nisi id, venenatis fringilla justo. Nam
-            porta, erat et commodo semper, tortor augue euismod nibh, et
-            interdum ante tortor nec risus. Nam fermentum imperdiet ipsum nec
-            porta. Ut vel fringilla est. Vivamus sed dolor justo. Quisque ac
-            tellus id nisl accumsan eleifend. In felis orci, aliquam non cursus
-            sit amet, convallis a odio. Sed tempor tincidunt pulvinar. Donec
-            bibendum pulvinar ante sit amet posuere. Etiam porta blandit purus
-            ac lacinia. Pellentesque non tortor id orci gravida convallis in et
-            nibh.
-          </Text>
-        </GridItem>
+    <>
+      <Helmet>
+        <title>{"Gulv & Terasse"}</title>
+      </Helmet>
+      <Container maxW={"container.xl"}>
+        <Grid
+          templateColumns={`${isSmallDevice ? "1fr" : "1fr 1fr"}`}
+          p={"3rem"}
+          templateRows={"auto auto 1fr"}
+          gap={4}
+        >
+          <GridItem rowSpan={1}>
+            <Heading size={"xl"} textAlign={"left"} pb={5}>
+              Skal du have lagt nyt gulv eller installeret gulvvarme?
+            </Heading>
+            <Text textAlign={"left"}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
+              tortor elit, varius et nisi id, venenatis fringilla justo. Nam
+              porta, erat et commodo semper, tortor augue euismod nibh, et
+              interdum ante tortor nec risus. Nam fermentum imperdiet ipsum nec
+              porta. Ut vel fringilla est. Vivamus sed dolor justo. Quisque ac
+              tellus id nisl accumsan eleifend. In felis orci, aliquam non
+              cursus sit amet, convallis a odio. Sed tempor tincidunt pulvinar.
+              Donec bibendum pulvinar ante sit amet posuere. Etiam porta blandit
+              purus ac lacinia. Pellentesque non tortor id orci gravida
+              convallis in et nibh.
+            </Text>
+          </GridItem>
 
-        <GridItem rowSpan={2}>
-          <Heading size={"lg"} pb={5} textAlign={"left"}>
-            Vi tilbyder følgende services til dit gulv
-          </Heading>
-          <Accordion allowToggle>
-            {floorServices.map((fs, idx) => {
-              return (
-                <AccordionItem key={idx}>
-                  <h2>
-                    <AccordionButton>
-                      <Box flex={1} textAlign={"left"}>
-                        {fs}
-                      </Box>
-                      <AccordionIcon />
-                    </AccordionButton>
-                  </h2>
-                  <AccordionPanel pb={4}>
-                    <Text textAlign={"left"}>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Mauris tortor elit, varius et nisi id, venenatis fringilla
-                      justo. Nam porta, erat et commodo semper, tortor augue
-                      euismod nibh, et interdum ante tortor nec risus. Nam
-                      fermentum imperdiet ipsum nec porta. Ut vel fringilla est.
-                      Vivamus sed dolor justo. Quisque ac tellus id nisl
-                      accumsan eleifend. In felis orci, aliquam non cursus sit
-                      amet, convallis a odio. Sed tempor tincidunt pulvinar.
-                      Donec bibendum pulvinar ante sit amet posuere. Etiam porta
-                      blandit purus ac lacinia. Pellentesque non tortor id orci
-                      gravida convallis in et nibh.
-                    </Text>
-                  </AccordionPanel>
-                </AccordionItem>
-              );
-            })}
-          </Accordion>
-        </GridItem>
+          <GridItem rowSpan={2}>
+            <Heading size={"lg"} pb={5} textAlign={"left"}>
+              Vi tilbyder følgende services til dit gulv
+            </Heading>
+            <Accordion allowToggle>
+              {floorServices.map((fs, idx) => {
+                return (
+                  <AccordionItem key={idx}>
+                    <h2>
+                      <AccordionButton>
+                        <Box flex={1} textAlign={"left"}>
+                          {fs}
+                        </Box>
+                        <AccordionIcon />
+                      </AccordionButton>
+                    </h2>
+                    <AccordionPanel pb={4}>
+                      <Text textAlign={"left"}>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Mauris tortor elit, varius et nisi id, venenatis
+                        fringilla justo. Nam porta, erat et commodo semper,
+                        tortor augue euismod nibh, et interdum ante tortor nec
+                        risus. Nam fermentum imperdiet ipsum nec porta. Ut vel
+                        fringilla est. Vivamus sed dolor justo. Quisque ac
+                        tellus id nisl accumsan eleifend. In felis orci, aliquam
+                        non cursus sit amet, convallis a odio. Sed tempor
+                        tincidunt pulvinar. Donec bibendum pulvinar ante sit
+                        amet posuere. Etiam porta blandit purus ac lacinia.
+                        Pellentesque non tortor id orci gravida convallis in et
+                        nibh.
+                      </Text>
+                    </AccordionPanel>
+                  </AccordionItem>
+                );
+              })}
+            </Accordion>
+          </GridItem>
 
-        <GridItem colSpan={1} rowSpan={2}>
-          <Image src={"/gallery/renovation.jpg"} />
-        </GridItem>
+          <GridItem colSpan={1} rowSpan={2}>
+            <Image src={"/gallery/renovation.jpg"} />
+          </GridItem>
 
-        <GridItem colSpan={1}>
-          <Button
-            colorScheme={"green"}
-            p={"2rem"}
-            size={"lg"}
-            onClick={() => navigate("/kontakt")}
-          >
-            Kontakt for tilbud!
-          </Button>
-        </GridItem>
-      </Grid>
-    </Container>
+          <GridItem colSpan={1}>
+            <Button
+              colorScheme={"green"}
+              p={"2rem"}
+              size={"lg"}
+              onClick={() => navigate("/kontakt")}
+            >
+              Kontakt for tilbud!
+            </Button>
+          </GridItem>
+        </Grid>
+      </Container>
+    </>
   );
 };
 export default Flooring;
