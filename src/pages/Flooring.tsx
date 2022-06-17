@@ -12,12 +12,14 @@ import {
   Image,
   Button,
   Container,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import BaseContainer from "../structural-components/base-container";
 
 const Flooring: FC = () => {
+  const [isSmallDevice] = useMediaQuery("(max-width: 600px)");
   const navigate = useNavigate();
   const floorServices = [
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -28,7 +30,7 @@ const Flooring: FC = () => {
   return (
     <Container maxW={"container.xl"}>
       <Grid
-        templateColumns={"1fr 1fr"}
+        templateColumns={`${isSmallDevice ? "1fr" : "1fr 1fr"}`}
         p={"3rem"}
         templateRows={"auto auto 1fr"}
         gap={4}
