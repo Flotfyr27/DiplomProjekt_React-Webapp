@@ -41,6 +41,12 @@ export const isEmailError = (_email: string): boolean => {
   const input = _email.match(emailRegex);
   return input?.length == 1 ? false : true;
 };
+export const isNameError = (_name: string): boolean => {
+  return _name == " " || _name.length <= 1 ? true : false;
+};
+export const isMessageError = (_message: string): boolean => {
+  return _message == " " || _message.length <= 1 ? true : false;
+};
 
 const ContactForm: FC = () => {
   const [email, setEmail] = useState("");
@@ -50,7 +56,9 @@ const ContactForm: FC = () => {
   const [isButtonLoading, setIsButtonLoading] = useState(false);
 
   const phoneError = isPhoneCorrect(phoneNum) == false && phoneNum != "";
-  const emailError = isEmailError(email) == true && email != "";
+  const emailError = isEmailError(email) && email != "";
+  const nameError = isNameError(name) && name != "";
+  const messageError = isMessageError(message) && message != "";
   const [isSmallDevice] = useMediaQuery("(max-width: 600px)");
   const toast = useToast();
 
@@ -171,7 +179,7 @@ const ContactForm: FC = () => {
         />
       </GridItem>
       <GridItem p={"1rem"} colSpan={1} rowSpan={1}>
-        <FormControl isRequired>
+        <FormControl isRequired isInvalid={nameError}>
           <FormLabel>Navn</FormLabel>
           <InputGroup>
             <InputLeftElement
@@ -184,6 +192,7 @@ const ContactForm: FC = () => {
               onChange={(event) => setName(event.target.value)}
             />
           </InputGroup>
+          {nameError && <FormErrorMessage>Indtast navn</FormErrorMessage>}
         </FormControl>
       </GridItem>
       <GridItem p={"1rem"} colSpan={1}>
@@ -219,6 +228,7 @@ const ContactForm: FC = () => {
             />
             <Input
               type={"email"}
+              value={email}
               onChange={(event) => setEmail(event.target.value)}
             />
           </InputGroup>
@@ -231,9 +241,15 @@ const ContactForm: FC = () => {
       </GridItem>
       <GridItem p={"1rem"} colSpan={isSmallDevice ? 1 : 2}>
         <Box>
-          <FormControl isRequired>
+          <FormControl isRequired isInvalid={messageError}>
             <FormLabel>Din besked</FormLabel>
-            <Textarea onChange={(event) => setMessage(event.target.value)} />
+            <Textarea
+              value={message}
+              onChange={(event) => setMessage(event.target.value)}
+            />
+            {messageError && (
+              <FormErrorMessage>Besked mangler!</FormErrorMessage>
+            )}
           </FormControl>
         </Box>
       </GridItem>
