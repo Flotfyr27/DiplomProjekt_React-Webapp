@@ -29,7 +29,7 @@ const NAV_ITEMS: Array<NavItem> = [
   {
     label: "Projekter",
     href: "projekter",
-    children: [{ label: "Gulve", href: "projekter/gulve" }],
+    children: [{ label: "Gulve", href: "projekter/gulve" }, {label: "Isolering", href: "projekter/isolering"}, {label: "Nyt tag / renovering", href: "projekter/tag-og-renovering"}, {label: "Terasse, Vinduer, og Døre", href: "projekter/terasse-vindue-dør"}],
   },
   {
     label: "Om os",
