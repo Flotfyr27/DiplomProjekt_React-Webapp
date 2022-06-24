@@ -1,11 +1,22 @@
-import { Grid, GridItem, Image, useMediaQuery } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Grid,
+  GridItem,
+  Heading,
+  Image,
+  Link,
+  useMediaQuery,
+} from "@chakra-ui/react";
 import { FC } from "react";
 import Helmet from "react-helmet";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/header";
 import ContactForm from "../components/widget/contactForm";
 
 const Project: FC = () => {
   const [isSmallDevice] = useMediaQuery("(max-width: 600px)");
+  const navigate = useNavigate();
   return (
     <>
       <Helmet>
@@ -26,20 +37,76 @@ const Project: FC = () => {
           />
         </GridItem>
         <GridItem colSpan={1}>
-          <Image src={"./gallery/insulation.jpg"} />
+          <Link onClick={() => navigate("/projekter/isolering")}>
+            <Center pos={"relative"}>
+              <Box
+                bg={"black"}
+                pos={"absolute"}
+                w={"100%"}
+                h={"100%"}
+                opacity={0.25}
+              ></Box>
+              <Heading pos={"absolute"} color={"white"}>
+                Isolering
+              </Heading>
+              <Image src={"./gallery/insulation.jpg"} />
+            </Center>
+          </Link>
         </GridItem>
 
         <GridItem colSpan={1}>
-          <Image src={"./gallery/renovation.jpg"} />
+          <Link onClick={() => navigate("/projekter/gulve")}>
+            <Center pos={"relative"}>
+              <Box
+                bg={"black"}
+                pos={"absolute"}
+                w={"100%"}
+                h={"100%"}
+                opacity={0.25}
+              ></Box>
+              <Heading color={"white"} pos={"absolute"}>
+                Gulv
+              </Heading>
+              <Image src={"./gallery/renovation.jpg"} />
+            </Center>
+          </Link>
         </GridItem>
         {isSmallDevice ? (
           <>
             <GridItem colSpan={1}>
-              <Image src={"./gallery/roof.jpg"} />
+              <Link onClick={() => navigate("/projekter/tag-og-renovering")}>
+                <Center pos={"relative"}>
+                  <Box
+                    bg={"black"}
+                    pos={"absolute"}
+                    w={"100%"}
+                    h={"100%"}
+                    opacity={0.25}
+                  ></Box>
+                  <Heading color={"white"} pos={"absolute"}>
+                    Nyt tag / renovering
+                  </Heading>
+                  <Image src={"./gallery/roof.jpg"} />
+                </Center>
+              </Link>
             </GridItem>
 
             <GridItem colSpan={1}>
-              <Image src={"./gallery/terrace.jpg"} />
+              <Link onClick={() => navigate("/projekter/terasse-vindue-dør")}>
+                <Center pos={"relative"}>
+                  <Box
+                    bg={"black"}
+                    pos={"absolute"}
+                    w={"100%"}
+                    h={"100%"}
+                    opacity={0.25}
+                  ></Box>
+                  <Heading color={"white"} pos={"absolute"}>
+                    {"Terasse, Vinduer, og Døre"}
+                  </Heading>
+                  <Image src={"./gallery/terrace.jpg"} />
+                </Center>
+              </Link>
             </GridItem>
 
             <GridItem colSpan={1} rowSpan={2}>
@@ -52,10 +119,38 @@ const Project: FC = () => {
               <ContactForm />
             </GridItem>
             <GridItem colSpan={1}>
-              <Image src={"./gallery/roof.jpg"} />
+              <Link onClick={() => navigate("/projekter/tag-og-renovering")}>
+                <Center pos={"relative"}>
+                  <Box
+                    bg={"black"}
+                    pos={"absolute"}
+                    w={"100%"}
+                    h={"100%"}
+                    opacity={0.25}
+                  ></Box>
+                  <Heading color={"white"} pos={"absolute"}>
+                    {"Nyt tag / renovering"}
+                  </Heading>
+                  <Image src={"./gallery/roof.jpg"} />
+                </Center>
+              </Link>
             </GridItem>
             <GridItem colSpan={1}>
-              <Image src={"./gallery/terrace.jpg"} />
+              <Link onClick={() => navigate("/projekter/terasse-vindue-dør")}>
+                <Center pos={"relative"}>
+                  <Box
+                    bg={"black"}
+                    pos={"absolute"}
+                    w={"100%"}
+                    h={"100%"}
+                    opacity={0.25}
+                  ></Box>
+                  <Heading color={"white"} pos={"absolute"}>
+                    {"Terasse, Vinduer, og Døre"}
+                  </Heading>
+                  <Image src={"./gallery/terrace.jpg"} />
+                </Center>
+              </Link>
             </GridItem>
           </>
         )}
