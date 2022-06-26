@@ -16,7 +16,7 @@ import {
   useMediaQuery,
 } from "@chakra-ui/react";
 import { MdPerson } from "react-icons/md";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import Header from "../header";
 import emailjs from "@emailjs/browser";
 import fetchMock from "fetch-mock";
@@ -42,10 +42,10 @@ export const isEmailError = (_email: string): boolean => {
   return input?.length == 1 ? false : true;
 };
 export const isNameError = (_name: string): boolean => {
-  return _name == " " || _name.length <= 1 ? true : false;
+  return _name.length <= 1 ? true : false;
 };
 export const isMessageError = (_message: string): boolean => {
-  return _message == " " || _message.length <= 1 ? true : false;
+  return _message.length <= 1 ? true : false;
 };
 
 const ContactForm: FC = () => {
@@ -54,13 +54,24 @@ const ContactForm: FC = () => {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [isButtonLoading, setIsButtonLoading] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
-  const phoneError = isPhoneCorrect(phoneNum) == false && phoneNum != "";
-  const emailError = isEmailError(email) && email != "";
-  const nameError = isNameError(name) && name != "";
-  const messageError = isMessageError(message) && message != "";
+  // const phoneError = isPhoneCorrect(phoneNum) == false && phoneNum != "";
+  // const emailError = isEmailError(email) && email != "";
+  // const nameError = isNameError(name) && name != "";
+  // const messageError = isMessageError(message) && message != "";
   const [isSmallDevice] = useMediaQuery("(max-width: 600px)");
   const toast = useToast();
+
+  // useEffect(() => {
+  //   if (name == "" || phoneNum == "" || email == "" || message == "") {
+  //     if (phoneError || emailError || nameError || messageError) {
+  //       setIsButtonDisabled(false);
+  //     } else {
+  //       setIsButtonDisabled(true);
+  //     }
+  //   }
+  // }, [phoneError, nameError, emailError, messageError]);
 
   function clearDataFromForm() {
     setEmail("");
@@ -68,29 +79,33 @@ const ContactForm: FC = () => {
     setName("");
     setMessage("");
   }
-  function missingDataToast() {
+  function missingDataToast(field: string) {
     toast({
-      title: "Data mangler",
-      description: "Data var forkert/mangler",
+      title: `Tilføj ${field}`,
+      description: `${field} var forkert/mangler`,
       status: "info",
     });
   }
 
   const onApply = () => {
-    if (name.length > 1) {
-      if (!phoneError) {
-        if (!emailError) {
-          if (message != "") {
+    if (!isNameError(name)) {
+      if (!isPhoneCorrect(phoneNum)) {
+        if (!isEmailError(email)) {
+          if (!isMessageError(message)) {
             sendFormData(packageFormData(), true);
             return;
+          } else {
+            missingDataToast("Besked");
           }
-          missingDataToast();
+        } else {
+          missingDataToast("Email");
         }
-        missingDataToast();
+      } else {
+        missingDataToast("Telefonnummer");
       }
-      missingDataToast();
+    } else {
+      missingDataToast("Navn");
     }
-    missingDataToast();
   };
   function packageFormData() {
     return {
@@ -179,7 +194,7 @@ const ContactForm: FC = () => {
         />
       </GridItem>
       <GridItem p={"1rem"} colSpan={1} rowSpan={1}>
-        <FormControl isRequired isInvalid={nameError}>
+        <FormControl isRequired isInvalid={isNameError(name)}>
           <FormLabel>Navn</FormLabel>
           <InputGroup>
             <InputLeftElement
@@ -192,11 +207,13 @@ const ContactForm: FC = () => {
               onChange={(event) => setName(event.target.value)}
             />
           </InputGroup>
-          {nameError && <FormErrorMessage>Indtast navn</FormErrorMessage>}
+          {isNameError(name) && (
+            <FormErrorMessage>Indtast navn</FormErrorMessage>
+          )}
         </FormControl>
       </GridItem>
       <GridItem p={"1rem"} colSpan={1}>
-        <FormControl isRequired isInvalid={phoneError}>
+        <FormControl isRequired isInvalid={isPhoneCorrect(phoneNum)}>
           <FormLabel>Telefonnummer</FormLabel>
           <InputGroup>
             <InputLeftElement
@@ -211,7 +228,7 @@ const ContactForm: FC = () => {
             />
           </InputGroup>
 
-          {phoneError && (
+          {isPhoneCorrect(phoneNum) && (
             <FormErrorMessage>
               Indtast venligst et gyldigt telefonnummer.
             </FormErrorMessage>
@@ -219,7 +236,7 @@ const ContactForm: FC = () => {
         </FormControl>
       </GridItem>
       <GridItem p={"1rem"} colSpan={isSmallDevice ? 1 : 2}>
-        <FormControl isRequired isInvalid={emailError}>
+        <FormControl isRequired isInvalid={isEmailError(email)}>
           <FormLabel>Email</FormLabel>
           <InputGroup>
             <InputLeftElement
@@ -232,7 +249,7 @@ const ContactForm: FC = () => {
               onChange={(event) => setEmail(event.target.value)}
             />
           </InputGroup>
-          {emailError && (
+          {isEmailError(email) && (
             <FormErrorMessage>
               Indtast venligst en gyldig email.
             </FormErrorMessage>
@@ -241,20 +258,24 @@ const ContactForm: FC = () => {
       </GridItem>
       <GridItem p={"1rem"} colSpan={isSmallDevice ? 1 : 2}>
         <Box>
-          <FormControl isRequired isInvalid={messageError}>
+          <FormControl isRequired isInvalid={isMessageError(message)}>
             <FormLabel>Din besked</FormLabel>
             <Textarea
               value={message}
               onChange={(event) => setMessage(event.target.value)}
             />
-            {messageError && (
+            {isMessageError(message) && (
               <FormErrorMessage>Besked mangler!</FormErrorMessage>
             )}
           </FormControl>
         </Box>
       </GridItem>
       <GridItem p={"1rem"} colSpan={isSmallDevice ? 1 : 2} rowSpan={1}>
-        <Button isLoading={isButtonLoading} onClick={() => onApply()}>
+        <Button
+          isDisabled={false}
+          isLoading={isButtonLoading}
+          onClick={() => onApply()}
+        >
           Send besked
         </Button>
       </GridItem>
