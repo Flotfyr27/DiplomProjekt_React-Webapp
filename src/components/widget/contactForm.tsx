@@ -14,12 +14,13 @@ import {
   FormErrorMessage,
   useToast,
   useMediaQuery,
+  InputLeftAddon,
+  InputRightElement,
 } from "@chakra-ui/react";
 import { MdPerson } from "react-icons/md";
 import { FC, useEffect, useState } from "react";
 import Header from "../header";
 import emailjs from "@emailjs/browser";
-import fetchMock from "fetch-mock";
 
 const phoneRegex = /^\d{8}$/gm;
 const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/gm;
@@ -37,15 +38,15 @@ export const isPhoneCorrect = (phone: string): boolean => {
   }
 };
 
-export const isEmailError = (_email: string): boolean => {
+export const isEmailCorrect = (_email: string): boolean => {
   const input = _email.match(emailRegex);
-  return input?.length == 1 ? false : true;
+  return input?.length == 1 ? true : false;
 };
-export const isNameError = (_name: string): boolean => {
-  return _name.length <= 1 ? true : false;
+export const isNameCorrect = (_name: string): boolean => {
+  return _name.length >= 1 && _name.charAt(0) != " ";
 };
-export const isMessageError = (_message: string): boolean => {
-  return _message.length <= 1 ? true : false;
+export const isMessageCorrect = (_message: string): boolean => {
+  return _message.length >= 1 ? true : false;
 };
 
 const ContactForm: FC = () => {
@@ -55,23 +56,14 @@ const ContactForm: FC = () => {
   const [message, setMessage] = useState("");
   const [isButtonLoading, setIsButtonLoading] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-
-  // const phoneError = isPhoneCorrect(phoneNum) == false && phoneNum != "";
-  // const emailError = isEmailError(email) && email != "";
-  // const nameError = isNameError(name) && name != "";
-  // const messageError = isMessageError(message) && message != "";
   const [isSmallDevice] = useMediaQuery("(max-width: 600px)");
   const toast = useToast();
 
-  // useEffect(() => {
-  //   if (name == "" || phoneNum == "" || email == "" || message == "") {
-  //     if (phoneError || emailError || nameError || messageError) {
-  //       setIsButtonDisabled(false);
-  //     } else {
-  //       setIsButtonDisabled(true);
-  //     }
-  //   }
-  // }, [phoneError, nameError, emailError, messageError]);
+  // should errors be shown?
+  const showPhoneError = !isPhoneCorrect(phoneNum) && phoneNum != "";
+  const showNameError = !isNameCorrect(name) && name != "";
+  const showEmailError = !isEmailCorrect(email) && email != "";
+  const showMessageError = !isMessageCorrect(message) && message != "";
 
   function clearDataFromForm() {
     setEmail("");
@@ -86,12 +78,16 @@ const ContactForm: FC = () => {
       status: "info",
     });
   }
+  useEffect(() => {
+    const disable = (!isPhoneCorrect(phoneNum) || !isNameCorrect(name) || !isEmailCorrect(email) || !isMessageCorrect(message));
+    setIsButtonDisabled(disable);
+  },[phoneNum, name, email, message])
 
   const onApply = () => {
-    if (!isNameError(name)) {
-      if (!isPhoneCorrect(phoneNum)) {
-        if (!isEmailError(email)) {
-          if (!isMessageError(message)) {
+    if (isNameCorrect(name)) {
+      if (isPhoneCorrect(phoneNum)) {
+        if (isEmailCorrect(email)) {
+          if (isMessageCorrect(message)) {
             sendFormData(packageFormData(), true);
             return;
           } else {
@@ -145,7 +141,10 @@ const ContactForm: FC = () => {
             isClosable: true,
           });
         })
-        .finally(() => setIsButtonLoading(false));
+        .finally(() => {
+          clearDataFromForm();
+          setIsButtonLoading(false);
+        })
     } else {
       emailjs
         .send("service_qk4jtlo", "default", _emailParams, "MwU9pUYvfqDHumEA2")
@@ -194,7 +193,7 @@ const ContactForm: FC = () => {
         />
       </GridItem>
       <GridItem p={"1rem"} colSpan={1} rowSpan={1}>
-        <FormControl isRequired isInvalid={isNameError(name)}>
+        <FormControl isRequired isInvalid={showNameError}>
           <FormLabel>Navn</FormLabel>
           <InputGroup>
             <InputLeftElement
@@ -207,28 +206,29 @@ const ContactForm: FC = () => {
               onChange={(event) => setName(event.target.value)}
             />
           </InputGroup>
-          {isNameError(name) && (
+          {showNameError && (
             <FormErrorMessage>Indtast navn</FormErrorMessage>
           )}
         </FormControl>
       </GridItem>
       <GridItem p={"1rem"} colSpan={1}>
-        <FormControl isRequired isInvalid={isPhoneCorrect(phoneNum)}>
+        <FormControl isRequired isInvalid={showPhoneError}>
           <FormLabel>Telefonnummer</FormLabel>
           <InputGroup>
-            <InputLeftElement
-              pointerEvents={"none"}
-              children={<PhoneIcon color={"gray.300"} />}
-            />
+            <InputLeftAddon children={"+45"}/>
             <Input
               type={"tel"}
               pattern={"[0-9]{8}"}
               value={phoneNum}
               onChange={(event) => setPhoneNum(event.target.value)}
             />
+            <InputRightElement
+              pointerEvents={"none"}
+              children={<PhoneIcon color={"gray.300"} />}
+            />
           </InputGroup>
 
-          {isPhoneCorrect(phoneNum) && (
+          {showPhoneError && (
             <FormErrorMessage>
               Indtast venligst et gyldigt telefonnummer.
             </FormErrorMessage>
@@ -236,7 +236,7 @@ const ContactForm: FC = () => {
         </FormControl>
       </GridItem>
       <GridItem p={"1rem"} colSpan={isSmallDevice ? 1 : 2}>
-        <FormControl isRequired isInvalid={isEmailError(email)}>
+        <FormControl isRequired isInvalid={showEmailError}>
           <FormLabel>Email</FormLabel>
           <InputGroup>
             <InputLeftElement
@@ -249,7 +249,7 @@ const ContactForm: FC = () => {
               onChange={(event) => setEmail(event.target.value)}
             />
           </InputGroup>
-          {isEmailError(email) && (
+          {showEmailError && (
             <FormErrorMessage>
               Indtast venligst en gyldig email.
             </FormErrorMessage>
@@ -258,13 +258,14 @@ const ContactForm: FC = () => {
       </GridItem>
       <GridItem p={"1rem"} colSpan={isSmallDevice ? 1 : 2}>
         <Box>
-          <FormControl isRequired isInvalid={isMessageError(message)}>
+          <FormControl isRequired isInvalid={showMessageError}>
             <FormLabel>Din besked</FormLabel>
             <Textarea
               value={message}
               onChange={(event) => setMessage(event.target.value)}
+              placeholder={"Jeg ønsker et tilbud på..."}
             />
-            {isMessageError(message) && (
+            {showMessageError && (
               <FormErrorMessage>Besked mangler!</FormErrorMessage>
             )}
           </FormControl>
@@ -272,7 +273,7 @@ const ContactForm: FC = () => {
       </GridItem>
       <GridItem p={"1rem"} colSpan={isSmallDevice ? 1 : 2} rowSpan={1}>
         <Button
-          isDisabled={false}
+          isDisabled={isButtonDisabled}
           isLoading={isButtonLoading}
           onClick={() => onApply()}
         >
