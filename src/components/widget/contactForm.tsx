@@ -96,7 +96,7 @@ const ContactForm: FC = () => {
       if (isPhoneCorrect(phoneNum)) {
         if (isEmailCorrect(email)) {
           if (isMessageCorrect(message)) {
-            sendFormData(packageFormData(), true);
+            sendFormData(packageFormData(), false);
             return;
           } else {
             missingDataToast("Besked");
