@@ -46,7 +46,15 @@ export const isNameCorrect = (_name: string): boolean => {
   return _name.length >= 1 && _name.charAt(0) != " ";
 };
 export const isMessageCorrect = (_message: string): boolean => {
-  return _message.length >= 1 ? true : false;
+  if(_message.length >= 1){
+    if(_message == " "){
+      return false;
+    }else{
+      return true
+    }
+  } else{
+    return false;
+  }
 };
 
 const ContactForm: FC = () => {
