@@ -98,7 +98,7 @@ const Terrace: FC = () => {
           </GridItem>
 
           <GridItem colSpan={1} rowSpan={2}>
-            <Image src={"/gallery/roof.jpg"} />
+            <Image src={"/gallery/terrace.jpg"} />
           </GridItem>
 
           <GridItem colSpan={1}>

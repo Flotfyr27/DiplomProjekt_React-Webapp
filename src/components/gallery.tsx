@@ -44,9 +44,9 @@ const Gallery: FC = () => {
     <>
       {isLoaded ? (
         <SimpleGrid gap={10} columns={isSmallDevice ? 1 : 3} p={"1rem"}>
-          {images.map((img) => {
+          {images.map((img, index) => {
             return (
-              <GridItem>
+              <GridItem key={index}>
                 <Image src={img} />
               </GridItem>
             );
